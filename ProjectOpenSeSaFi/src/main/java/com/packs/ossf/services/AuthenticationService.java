@@ -3,9 +3,9 @@ package com.packs.ossf.services;
 import com.packs.ossf.Security.JwtTokenProvider;
 import com.packs.ossf.constants.MessageConstants;
 import com.packs.ossf.exceptions.AppException;
-import com.packs.ossf.models.Role;
-import com.packs.ossf.models.RoleName;
-import com.packs.ossf.models.User;
+import com.packs.ossf.models.entity.Role;
+import com.packs.ossf.models.enums.RoleName;
+import com.packs.ossf.models.entity.User;
 import com.packs.ossf.models.requests.LoginRequest;
 import com.packs.ossf.models.requests.SignUpRequest;
 import com.packs.ossf.models.responses.ApiResponse;
@@ -69,8 +69,10 @@ public class AuthenticationService {
 
     public ResponseEntity<JwtAuthenticationResponse> signin(LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsernameOrEmail(),
+                        loginRequest.getPassword()
+                )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);

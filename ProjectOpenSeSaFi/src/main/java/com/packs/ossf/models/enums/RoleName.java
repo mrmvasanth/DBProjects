@@ -1,4 +1,4 @@
-package com.packs.ossf.models;
+package com.packs.ossf.models.enums;
 
 public enum RoleName {
     ROLE_USER,
