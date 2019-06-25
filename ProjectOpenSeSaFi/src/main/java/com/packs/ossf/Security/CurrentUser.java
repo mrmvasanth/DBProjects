@@ -10,5 +10,6 @@ import java.lang.annotation.*;
 @AuthenticationPrincipal
 public @interface CurrentUser {
 //   This is a meta-annotation, to remove Spring Security from the project, change the CurrentUser annotation
+//    This is to access the currently authenticated user in the controllers.
 
 }

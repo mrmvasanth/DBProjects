@@ -1,5 +1,6 @@
-package com.packs.ossf.models;
+package com.packs.ossf.models.entity;
 
+import com.packs.ossf.models.enums.RoleName;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;

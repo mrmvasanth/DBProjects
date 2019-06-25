@@ -1,7 +1,7 @@
 package com.packs.ossf.repositories;
 
-import com.packs.ossf.models.Role;
-import com.packs.ossf.models.RoleName;
+import com.packs.ossf.models.entity.Role;
+import com.packs.ossf.models.enums.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

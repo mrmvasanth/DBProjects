@@ -6,6 +6,7 @@ import com.packs.ossf.Security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -56,38 +57,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
-                .and()
+                    .and()
                 .csrf()
-                .disable()
+                    .disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-                .and()
+                    .authenticationEntryPoint(unauthorizedHandler)
+                    .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
                 .authorizeRequests()
-                .antMatchers("/",
-                        "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
-                        "/**/*.html")
-                .permitAll()
-                .antMatchers("/api/auth/**")
-                .permitAll()
-                .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
-                .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/users/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+                    .antMatchers("/",
+                            "/favicon.ico",
+                            "/**/*.png",
+                            "/**/*.gif",
+                            "/**/*.svg",
+                            "/**/*.jpg",
+                            "/**/*.html")
+                        .permitAll()
+                    .antMatchers("/api/auth/**")
+                        .permitAll()
+                    .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
+                        .permitAll()
+                    .anyRequest()
+                        .authenticated();
 
         // Adding custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
-
 
 
 }

@@ -1,8 +1,7 @@
 package com.packs.ossf.Security;
 
-import com.packs.ossf.Security.UserPrincipal;
 import com.packs.ossf.constants.MessageConstants;
-import com.packs.ossf.models.User;
+import com.packs.ossf.models.entity.User;
 import com.packs.ossf.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,10 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-
+    @Autowired
     UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
         User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() ->

@@ -1,7 +1,7 @@
 package com.packs.ossf.Security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.packs.ossf.models.User;
+import com.packs.ossf.models.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,10 +20,10 @@ public class UserPrincipal implements UserDetails {
     private String username;
 
     @JsonIgnore
-    public String email;
+    private String email;
 
     @JsonIgnore
-    public String password;
+    private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -59,13 +59,13 @@ public class UserPrincipal implements UserDetails {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public String getUsername() {
         return username;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override
