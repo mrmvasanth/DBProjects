@@ -14,8 +14,8 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    AuthenticationService authenticationService;
+
+    AuthenticationService authenticationService=new AuthenticationService();
 
     @GetMapping("/test")
     private String testOssf(){
