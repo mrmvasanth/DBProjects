@@ -2,11 +2,11 @@ package com.packs.flyy.models.entity;
 
 import com.packs.flyy.models.audit.DateAudit;
 import org.hibernate.annotations.NaturalId;
-import sun.plugin.util.UserProfile;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.UUID;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users_profiles", uniqueConstraints = {
@@ -14,13 +14,13 @@ import java.util.UUID;
                 "phone_number"
         })
 })
-public class UsersProfiles extends DateAudit {
+public class UsersProfiles extends DateAudit implements Serializable {
 
     @Id
-    @OneToOne
-    @JoinColumn
-    @MapsId
-    private UUID user_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private int user_id;
 
     @Size(max = 40)
     private String name;
@@ -36,10 +36,8 @@ public class UsersProfiles extends DateAudit {
     @Pattern(regexp="(^$|[0-9]{10})")
     private String phone_number;
 
-
     @Size(max = 40)
     private String ename;
-
 
     @Size(min=10,max=10)
     @Pattern(regexp="(^$|[0-9]{10})")
@@ -54,4 +52,86 @@ public class UsersProfiles extends DateAudit {
     private String referral_code;
 
 
+    public UsersProfiles() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getEname() {
+        return ename;
+    }
+
+    public void setEname(String ename) {
+        this.ename = ename;
+    }
+
+    public String getEcontact() {
+        return econtact;
+    }
+
+    public void setEcontact(String econtact) {
+        this.econtact = econtact;
+    }
+
+    public String getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
+    }
+
+    public String getActive_status() {
+        return active_status;
+    }
+
+    public void setActive_status(String active_status) {
+        this.active_status = active_status;
+    }
+
+    public String getReferral_code() {
+        return referral_code;
+    }
+
+    public void setReferral_code(String referral_code) {
+        this.referral_code = referral_code;
+    }
 }

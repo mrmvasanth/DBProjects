@@ -1,5 +1,6 @@
 package com.packs.flyy.models.response;
 
+import com.packs.flyy.models.entity.Users;
 import com.packs.flyy.models.entity.UsersProfiles;
 import lombok.*;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,9 @@ public class ApiResponse<T> {
 
     public ApiResponse(Optional<UsersProfiles> user) {
         this.data= (T) user;
+    }
+
+    public ApiResponse(Users user) {
     }
 
     //Static constructor methods

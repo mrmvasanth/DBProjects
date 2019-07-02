@@ -12,9 +12,11 @@ import java.util.UUID;
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID role_id;
+    private int role_id;
 
     @Column(length = 3)
     private RoleName name;
 
+    public Roles() {
+    }
 }
