@@ -1,11 +1,7 @@
 package com.packs.flyy.models.response;
 
-import com.packs.flyy.models.entity.Users;
-import com.packs.flyy.models.entity.UsersProfiles;
 import lombok.*;
 import org.springframework.http.HttpStatus;
-
-import java.util.Optional;
 
 
 @Getter
@@ -16,6 +12,9 @@ public class ApiResponse<T> {
     private String message = "success";
     private T data;
     private int code = 200;
+    private String accessToken;
+    private String tokenType = "Bearer";
+
 
     public ApiResponse(int code, HttpStatus httpStatus, String message) {
         this.code = code;
@@ -28,11 +27,12 @@ public class ApiResponse<T> {
         this.message = message;
     }
 
-    public ApiResponse(Optional<UsersProfiles> user) {
-        this.data= (T) user;
-    }
 
-    public ApiResponse(Users user) {
+    public ApiResponse(String accessToken,int code,HttpStatus httpStatus){
+        this.accessToken=accessToken;
+        this.tokenType=tokenType;
+        this.code=code;
+        this.httpStatus=httpStatus;
     }
 
     //Static constructor methods
@@ -44,9 +44,9 @@ public class ApiResponse<T> {
         return new ApiResponse(code,message);
     }
 
-    public static ApiResponse make(Optional<UsersProfiles> user){
-        return new ApiResponse(user);
-    }
+    public static <T> ApiResponse make(String accessToken,int code,HttpStatus httpStatus) {
+        return new ApiResponse(accessToken,code,httpStatus);
 
+    }
 
 }

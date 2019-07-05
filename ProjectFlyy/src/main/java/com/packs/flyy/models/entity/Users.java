@@ -1,14 +1,15 @@
 package com.packs.flyy.models.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.packs.flyy.models.audit.DateAudit;
-import sun.plugin.util.UserProfile;
+import com.packs.flyy.models.entity.Admin.AdminProfiles;
+import com.packs.flyy.models.entity.Agent.AgentProfiles;
+import com.packs.flyy.models.entity.Client.UsersProfiles;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -16,7 +17,7 @@ public class Users extends DateAudit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userid;
 
     private String jwt_token;
 
@@ -24,32 +25,47 @@ public class Users extends DateAudit implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date token_expiry;
 
+
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id",referencedColumnName ="user_id",updatable = true,insertable = true)
+    @JoinColumn(name = "userid",referencedColumnName ="userid",updatable = true,insertable = true)
     private List<UsersProfiles> usersProfiles;
 
-    public List<UsersProfiles> getUsersProfiles() {
-        return usersProfiles;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid",referencedColumnName ="userid",updatable = true,insertable = true)
+    private List<AdminProfiles>  adminProfiles;
 
-    public void setUsersProfiles(List<UsersProfiles> usersProfiles) {
-        this.usersProfiles = usersProfiles;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid",referencedColumnName ="userid",updatable = true,insertable = true)
+    private List<AgentProfiles> agentProfiles;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn
+    private Roles roles;
 
     public Users() {
     }
 
-    public Users(String jwt_token, Date token_expiry, UsersProfiles usersProfiles) {
+    public Users(Long userid, String jwt_token, Date token_expiry, List<UsersProfiles> usersProfiles,
+                 List<AdminProfiles> adminProfiles, @NotNull Roles roles) {
+        this.userid = userid;
         this.jwt_token = jwt_token;
         this.token_expiry = token_expiry;
+        this.usersProfiles = usersProfiles;
+        this.adminProfiles = adminProfiles;
+        this.roles = roles;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Users(@NotNull Roles roles) {
+        this.roles = roles;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
     public String getJwt_token() {
@@ -68,6 +84,19 @@ public class Users extends DateAudit implements Serializable {
         this.token_expiry = token_expiry;
     }
 
+    public List<UsersProfiles> getUsersProfiles() {
+        return usersProfiles;
+    }
 
+    public void setUsersProfiles(List<UsersProfiles> usersProfiles) {
+        this.usersProfiles = usersProfiles;
+    }
 
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 }
